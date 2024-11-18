@@ -111,7 +111,7 @@ export const addNewAdmin = catchAsyncErrors(async (req,res,next)=>{
 export const getAllDoctor = catchAsyncErrors(async (req, res, next) => {
   const doctors = await User.find({ role: "Doctor" });
   console.log("Data Fetched")
-  console.log(doctors);
+  //console.log(doctors);
   res.status(200).json({
     success: true,
     doctors,
