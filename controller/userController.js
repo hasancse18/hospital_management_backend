@@ -33,7 +33,7 @@ export const patientRegister = catchAsyncErrors(async (req, res, next) => {
     dob,
     gender,
     password,
-    role
+    role:"Patient"
   });
   console.log("Data Saved");
   generateToken(user,"Signup Success",200,res)
@@ -66,7 +66,7 @@ export const login = catchAsyncErrors(async(req,res,next)=>{
     //console.log(role, user.role);
     return next(new ErrorHandler("User with ROle Not Found",400))
   }
-  generateToken(user,"User Login",200,res)
+  generateToken(user,"Login Successfully",200,res)
   // res.status(200).json({
   //   success:true,
   //   message: "User Login"
@@ -108,11 +108,15 @@ export const addNewAdmin = catchAsyncErrors(async (req,res,next)=>{
   generateToken(user,"Admin Signup Success",200,res)
 })
 
-export const getAllDoctor= catchAsyncErrors(async(req,res,next)=>{
-  const user = await User.find({role:"Doctor"});
-
-  res.status(200).json({user,success:true});
-})
+export const getAllDoctor = catchAsyncErrors(async (req, res, next) => {
+  const doctors = await User.find({ role: "Doctor" });
+  console.log("Data Fetched")
+  console.log(doctors);
+  res.status(200).json({
+    success: true,
+    doctors,
+  });
+});
 
 export const userDetails = catchAsyncErrors(async(req,res,next)=>{
   const user = req.user
